@@ -1,9 +1,25 @@
 const express = require('express');
 const app = express();
-const port = process.env.PORT || 8000;
+require('dotenv').config();
+const port = process.env.PORT;
+const expressLayouts = require('express-ejs-layouts');
+const sassMiddleware = require('node-sass-middleware');
 
-app.set('view engine', 'ejs');
+app.use(sassMiddleware({
+    src: './assets/scss',
+    dest: './assets/css',
+    debug: true,
+    outputStyle: 'extended',
+    prefix: '/css'
+}));
+app.use(express.static("./assets"));
 app.use(express.urlencoded({ extended: false }));
+app.use(expressLayouts);
+app.set('layout extractStyles', true);
+app.set('layout extractScripts', true);
+app.set('view engine', 'ejs');
+app.set('views', './views');
+
 app.use('/', require('./routes'));
 
 app.listen(port, (err)=> {
