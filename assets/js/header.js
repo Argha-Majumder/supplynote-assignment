@@ -10,6 +10,7 @@ function openLoginOffcanvas() {
     var loginOffcanvas = new bootstrap.Offcanvas(loginOffcanvasElement);
     loginOffcanvas.show();
 }   
+
 function openSignupOffcanvas() {
     // Close the Login Offcanvas
     var loginOffcanvasElement = document.getElementById('loginOffcanvas');

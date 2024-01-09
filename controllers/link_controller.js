@@ -1,6 +1,7 @@
 const Link = require('../models/link');
 const User = require('../models/user');
 
+// shortening the link and saving it to db
 module.exports.shorten = async (req, res) => {
     try {
         let link = await Link.findOne({full: req.body.full});
@@ -20,6 +21,7 @@ module.exports.shorten = async (req, res) => {
     }
 }
 
+// accessing the link using short url and redirecting to original full url
 module.exports.accessLink = async (req, res) => {
     try {
         let link = await Link.findOne({short: req.params.shorten});
@@ -37,6 +39,7 @@ module.exports.accessLink = async (req, res) => {
     }
 }
 
+// deleting the link from the db
 module.exports.delete = async (req, res) => {
     try {
         let link = await Link.findById(req.params.id);

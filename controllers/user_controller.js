@@ -1,5 +1,6 @@
 const User = require('../models/user');
 
+// get the signup data
 module.exports.create = async (req, res) => {
     try {
         let user = await User.findOne({email: req.body.email});
@@ -15,10 +16,12 @@ module.exports.create = async (req, res) => {
     }
 }
 
+// sign in and create session for the user
 module.exports.createSession = (req, res) => {
     return res.redirect('/');
 }
 
+// signing out using passport.js
 module.exports.destroySession = (req, res) => {
     req.logout((err) => {
         if (err) {

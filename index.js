@@ -4,7 +4,7 @@ const app = express();
 require('dotenv').config();
 const port = process.env.PORT;
 const db = require('./config/mongoose');
-const session = require('express-session');
+const session = require('express-session'); // used for session cookies
 const passport = require('passport');
 const passportLocal = require('./config/passport_local_strategy');
 const MongoStore = require('connect-mongo');
@@ -18,15 +18,21 @@ app.use(sassMiddleware({
     outputStyle: 'extended',
     prefix: '/css'
 }));
-app.use(express.static("./assets"));
+
+app.use(express.static("./assets")); // using static pages
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(expressLayouts);
+app.use(expressLayouts); // for adding layouts
+
+// extract style and scripts from sub pages into the layout
 app.set('layout extractStyles', true);
 app.set('layout extractScripts', true);
+
+// set up the view engine
 app.set('view engine', 'ejs');
 app.set('views', './views');
 
+// mongo store is used to store the session cookie in the db
 app.use(session({
     name: 'URL shortener',
     secret: process.env.SESSION_COOKIE_KEY,
@@ -51,7 +57,7 @@ app.use(passport.session());
 
 app.use(passport.setAuthenticatedUser);
 
-app.use('/', require('./routes'));
+app.use('/', require('./routes')); // use express router
 
 app.listen(port, (err)=> {
     if (err) {

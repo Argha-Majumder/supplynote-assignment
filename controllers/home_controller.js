@@ -1,5 +1,6 @@
 const User = require('../models/user');
 
+// rendering the home page
 module.exports.home = async (req, res) => {
     try {
         if (req.user) {
