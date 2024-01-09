@@ -1,9 +1,9 @@
 const express = require('express');
+const cookieParser = require('cookie-parser');
 const app = express();
 require('dotenv').config();
 const port = process.env.PORT;
 const db = require('./config/mongoose');
-const cookieParser = require('cookie-parser');
 const session = require('express-session');
 const passport = require('passport');
 const passportLocal = require('./config/passport_local_strategy');
@@ -40,7 +40,7 @@ app.use(session({
             mongoUrl: process.env.DATABASE_URL,
             autoRemove: 'disabled'
         },
-        (err) => {
+        function (err) {
             console.log('connect-mongodb setup ok');
         }
     )
